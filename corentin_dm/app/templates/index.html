@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mon Interface</title>
+</head>
+<body>
+    <form method="post" action="/">
+        <input type="submit" value="Retrouver toutes les Donnees">
+    </form>
+
+<form method="post" action="/chercher">
+        <label for="les_criteres">chercher:</label>
+        <input type="text" id="les_criteres" name="les_criteres">
+        <input type="submit" value="données par ID">
+    </form>
+
+    {% if phrase_originale %}
+        <h1>Phrase Originale</h1>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Phrase ID</th>
+                    <th>Phrase Originale</th> 
+                    <th>Traduction Automatique</th>
+                    <th>Traduction Humaine</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in phrase_originale %}
+                    <tr>
+                        <td>{{ row[0] }}</td>
+                        <td>{{ row[1] }}</td>
+                        <td>{{ row[2] }}</td>
+                        <td>{{ row[3] }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        {% if search_criteria %}
+            <p>No data found for phrase originale.</p>
+        {% endif %}
+    {% endif %}
+
+    {% if trad_auto %}
+        <h1>Traduction Automatique</h1>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Traduction Automatique ID</th>
+                    <th>Traduction Automatique Texte</th> 
+                    <th>Phrase Originale</th>
+                    <th>Traduction Humaine</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in trad_auto %}
+                    <tr>
+                        <td>{{ row[0] }}</td>
+                        <td>{{ row[1] }}</td>
+                        <td>{{ row[2] }}</td>
+                        <td>{{ row[3] }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        {% if search_criteria %}
+            <p>No data found for traduction automatique.</p>
+        {% endif %}
+    {% endif %}
+
+    {% if trad_hum %}
+        <h1>Traduction Humaine</h1>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Traduction Humaine ID</th>
+                    <th>Traduction Humaine Texte</th> 
+                    <th>Phrase Originale</th>
+                    <th>Traduction Automatique</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in trad_hum %}
+                    <tr>
+                        <td>{{ row[0] }}</td>
+                        <td>{{ row[1] }}</td>
+                        <td>{{ row[2] }}</td>
+                        <td>{{ row[3] }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        {% if search_criteria %}
+            <p>No data found for traduction humaine.</p>
+        {% endif %}
+    {% endif %}
+
+    {% if not phrase_originale and not trad_auto and not trad_hum %}
+        {% if search_criteria %}
+            <p>No data found.</p>
+        {% endif %}
+    {% endif %}
+
+</body>
+</html>
